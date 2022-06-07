@@ -1,0 +1,58 @@
+package com.beyzaakkuzu.qrcodereader.feature.tabs.create.qr
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import com.beyzaakkuzu.qrcodereader.R
+import com.beyzaakkuzu.qrcodereader.extension.applySystemWindowInsets
+import com.beyzaakkuzu.qrcodereader.feature.BaseActivity
+import com.beyzaakkuzu.qrcodereader.feature.tabs.create.CreateBarcodeActivity
+import com.beyzaakkuzu.qrcodereader.model.schema.BarcodeSchema
+import com.google.zxing.BarcodeFormat
+import kotlinx.android.synthetic.main.activity_all_permissions.root_view
+import kotlinx.android.synthetic.main.activity_all_permissions.toolbar
+import kotlinx.android.synthetic.main.activity_create_qr_code_all.*
+
+class AllActivity : BaseActivity() {
+
+    companion object {
+
+        fun start(context: Context) {
+            val intent = Intent(context, AllActivity::class.java)
+            context.startActivity(intent)
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_create_qr_code_all)
+        supportEdgeToEdge()
+        handleToolbarBackClicked()
+        handleButtonsClicked()
+    }
+
+    private fun supportEdgeToEdge() {
+        root_view.applySystemWindowInsets(applyTop = true, applyBottom = true)
+    }
+
+    private fun handleToolbarBackClicked() {
+        toolbar.setNavigationOnClickListener {
+            finish()
+        }
+    }
+
+    private fun handleButtonsClicked() {
+        button_text.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.OTHER) }
+        button_url.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.URL) }
+        button_wifi.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.WIFI) }
+        button_location.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.GEO) }
+        button_contact_vcard.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.VCARD) }
+        button_contact_mecard.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.MECARD) }
+        button_event.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.VEVENT) }
+        button_phone.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.PHONE) }
+        button_email.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.EMAIL) }
+        button_sms.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.SMS) }
+        button_bookmark.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.BOOKMARK) }
+        button_app.setOnClickListener { CreateBarcodeActivity.start(this, BarcodeFormat.QR_CODE, BarcodeSchema.APP) }
+    }
+}
